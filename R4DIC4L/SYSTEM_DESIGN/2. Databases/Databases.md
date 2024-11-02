@@ -16,7 +16,7 @@ noteID: e080ae3f-ec07-4ef7-8e41-f79b252105fa
 
 ##### Imperative 
 An imperative language tells the computer to perform certain operations in a certain order
-##### Declartive
+##### Declarative
 In a declarative query language, you just specify the pattern of the data you want—what conditions the results must meet, and how you want the data to be transformed (e.g., sorted, grouped, and aggregated)—but not how to achieve that goal.
 
 ### Simple Database
