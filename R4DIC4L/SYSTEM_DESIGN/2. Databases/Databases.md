@@ -3,14 +3,14 @@ noteID: e080ae3f-ec07-4ef7-8e41-f79b252105fa
 ---
 ### Relational Model vs Document Model
  
-| Relational                                                                                                                                                    | Document                                                                                                                                                                                                           |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Data is organized into tables (relations) with rows and columns.                                                                                              | Data is stored in documents, typically in JSON, BSON, or XML format.                                                                                                                                               |
-| Requires a fixed schema defined before data entry.<br>**Schema on write** : the schema is explicit and the database ensures all written data con‐ forms to it | Schema-less or dynamic schema, allowing for easy changes to the data structure without major migrations.<br>**Schema on read** : the structure of the data is implicit, and only interpreted when the data is read |
-| Enforces strong data integrity through constraints (e.g., primary keys, foreign keys).                                                                        | Typically offers less stringent data integrity than relational databases.                                                                                                                                          |
-| Uses SQL (Structured Query Language) for querying and manipulating data.                                                                                      | Uses various query languages, often specific to the database system (e.g., MongoDB uses its own query language).                                                                                                   |
-| Best suited for applications requiring complex transactions and strong consistency (e.g., banking systems, enterprise applications).                          | Ideal for applications with unstructured or semi-structured data, such as content management systems, real-time analytics, and web applications.                                                                   |
-| Better support for one-to-many and many-to-many relations and joins                                                                                           | Weaker support but more closer to data structure used by application and better performance based on locality                                                                                                      |
+| Relational                                                                                                                                                  | Document                                                                                                                                                                                                           |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Data is organized into tables (relations) with rows and columns.                                                                                            | Data is stored in documents, typically in JSON, BSON, or XML format.                                                                                                                                               |
+| Requires a fixed schema defined before data entry.<br>**Schema on write** : the schema is explicit and the database ensures all written data conforms to it | Schema-less or dynamic schema, allowing for easy changes to the data structure without major migrations.<br>**Schema on read** : the structure of the data is implicit, and only interpreted when the data is read |
+| Enforces strong data integrity through constraints (e.g., primary keys, foreign keys).                                                                      | Typically offers less stringent data integrity than relational databases.                                                                                                                                          |
+| Uses SQL (Structured Query Language) for querying and manipulating data.                                                                                    | Uses various query languages, often specific to the database system (e.g., MongoDB uses its own query language).                                                                                                   |
+| Best suited for applications requiring complex transactions and strong consistency (e.g., banking systems, enterprise applications).                        | Ideal for applications with unstructured or semi-structured data, such as content management systems, real-time analytics, and web applications.                                                                   |
+| Better support for one-to-many and many-to-many relations and joins                                                                                         | Weaker support but more closer to data structure used by application and better performance based on locality                                                                                                      |
 
 ### Query Languages
 
@@ -30,7 +30,7 @@ Append a special deletion record to the data file (sometimes called a tombstone)
 ##### Crash Recovery
 In case of failures in memory hash indexes are lost. This needs to be regenerated by reading the entire log file.
 ##### Concurrency control
-As writes are appended to the log in a strictly sequential order, a common imple‐ mentation choice is to have only one writer thread. Data file segments are append-only and otherwise immutable, so they can be read concurrently by mul‐ tiple threads.
+As writes are appended to the log in a strictly sequential order, a common implementation choice is to have only one writer thread. Data file segments are append-only and otherwise immutable, so they can be read concurrently by multiple threads.
 
 
 #### Indexing
@@ -51,13 +51,13 @@ In this method data which is stored in segments should be sorted by key. This is
 
 ##### B-Trees
 B-trees break the database down into fixed-size blocks or pages, traditionally 4 KB in size, and read or write one page at a time. One page is designated as the root of the B-tree. The page contains several keys and references to child pages. Each child is responsible for a continuous range of keys, and the keys between the references indicate where the boundaries between those ranges lie.
-Crash recovery : An additional data structure on disk: a write-ahead log (WAL, also known as a redo log). This is an append-only file to which every B-tree modification must be written before it can be applied to the pages of the tree itself. When the data‐ base comes back up after a crash, this log is used to restore the B-tree back to a con‐ sistent state.
+Crash recovery : An additional data structure on disk: a write-ahead log (WAL, also known as a redo log). This is an append-only file to which every B-tree modification must be written before it can be applied to the pages of the tree itself. When the data‐ base comes back up after a crash, this log is used to restore the B-tree back to a consistent state.
 ###### Clustered Index 
 Table data is stored along with index
 ###### Heap file
 Table data is stored in a separate place callled heap file and index contains only references to positions in heap file.
 ###### Covering index
-Stores some of a table’s col‐ umns within the index.
+Stores some of a table’s columns within the index.
 ###### Multi column index
 The most common type of multi-column index is called a concatenated index, which simply combines several fields into one key by appending one column to another.
 
@@ -74,7 +74,7 @@ The translation from the in-memory representation to a byte sequence is called e
 
 #### Vertical Scaling 
 Vertical scaling, also known as scaling up, is the scaling by adding more power (CPU, RAM, DISK, etc.) to an existing machine.
-> **Limitations**\
+> **Limitations**
 	There are hardware limits.
 	Greater risk of single point of failures.
 	The overall cost of vertical scaling is high
@@ -89,5 +89,5 @@ The most important factor to consider when implementing a sharding strategy is t
 	-  a single shard could no longer hold more data due to rapid growth.
 	-  Certain shards might experience shard exhaustion faster than others due to uneven data distribution.
 * Excessive access to a specific shard could cause server overload. This problem is also known as ***Celebrity Problem or Hotspot key problem***.
-* Once a database has been sharded across multiple servers, it is hard to perform join operations across database shards. A common workaround is to de- normalize the database so that queries can be performed in a single table.
+* Once a database has been sharded across multiple servers, it is hard to perform join operations across database shards. A common workaround is to denormalize the database so that queries can be performed in a single table.
 
